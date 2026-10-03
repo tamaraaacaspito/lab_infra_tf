@@ -14,6 +14,18 @@ resource "docker_container" "webserver" {
   networks_advanced {
     name = docker_network.environment.name
   }
+
+  upload {
+    content = file("${path.module}/web/index.html")
+    file    = "/usr/share/nginx/html/index.html"
+  }
+
+  upload {
+    content = templatefile("${path.module}/web/nginx.conf.tftpl", {
+      api_host = "api-${terraform.workspace}"
+    })
+    file = "/etc/nginx/conf.d/default.conf"
+  }
 }
 
 output "web_server_port" {

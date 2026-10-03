@@ -21,7 +21,12 @@ resource "docker_container" "api" {
   }
 
   env = [
-    "ENTORNO=${terraform.workspace}"
+    "ENTORNO=${terraform.workspace}",
+    "DB_HOST=bd-${terraform.workspace}",
+    "DB_PORT=5432",
+    "DB_NAME=iac_${terraform.workspace}",
+    "DB_USER=admin",
+    "DB_PASSWORD=${var.postgres_password}"
   ]
 }
 

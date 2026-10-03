@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratorio IaC - DEV</title>
+</head>
+<body>
+  <h1>Entorno DEV</h1>
+
+  <p>NGINX funciona.</p>
+
+  <button onclick="probarBackend()">
+    Probar conexión con Backend
+  </button>
+
+  <pre id="resultado">Esperando prueba...</pre>
+
+  <script>
+    async function probarBackend() {
+      const resultado = document.getElementById("resultado");
+
+      resultado.textContent = "Conectando con el backend...";
+
+      try {
+        const respuesta = await fetch("/api/db");
+        const datos = await respuesta.json();
+
+        resultado.textContent = JSON.stringify(datos, null, 2);
+      } catch (error) {
+        resultado.textContent =
+          "Error al conectar con el backend: " + error.message;
+      }
+    }
+  </script>
+</body>
+</html>
