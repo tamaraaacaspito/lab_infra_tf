@@ -3,18 +3,126 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Laboratorio IaC - ${environment}</title>
+
+  <title>Lab IaC - ${environment}</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-family: Arial, sans-serif;
+      background-color: #eef3f8;
+      color: #F5276C;
+    }
+
+    .contenedor {
+      width: 90%;
+      max-width: 600px;
+
+      padding: 35px;
+      text-align: center;
+
+      background-color: white;
+      border-radius: 12px;
+
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      color: #F5276C;
+    }
+
+    .entorno {
+      display: inline-block;
+
+      padding: 6px 14px;
+      margin-bottom: 20px;
+
+      border-radius: 20px;
+
+      background-color: #e5f4ef;
+      color: #F5B027;
+
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    p {
+      color: #000000;
+    }
+
+    button {
+      margin-top: 15px;
+
+      padding: 12px 22px;
+
+      border: none;
+      border-radius: 8px;
+
+      background-color: #F5276C;
+      color: white;
+
+      font-size: 16px;
+      font-weight: bold;
+
+      cursor: pointer;
+
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #F54927;
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    pre {
+      margin-top: 25px;
+      padding: 18px;
+
+      text-align: left;
+
+      background-color: #f4f6f8;
+      border-radius: 8px;
+
+      color: #37474f;
+
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Entorno ${environment}</h1>
 
-  <p>NGINX funciona.</p>
+  <div class="contenedor">
 
-  <button onclick="probarBackend()">
-    Probar conexión con Backend
-  </button>
+    <h1>Lab IaC</h1>
 
-  <pre id="resultado">Esperando prueba...</pre>
+    <div class="entorno">
+      Entorno ${environment}
+    </div>
+
+    <p>
+      NGINX funciona correctamente.
+    </p>
+
+    <button onclick="probarBackend()">
+      Probar conexión con Backend
+    </button>
+
+    <pre id="resultado">Esperando prueba...</pre>
+
+  </div>
 
   <script>
     async function probarBackend() {
@@ -27,11 +135,13 @@
         const datos = await respuesta.json();
 
         resultado.textContent = JSON.stringify(datos, null, 2);
+
       } catch (error) {
         resultado.textContent =
           "Error al conectar con el backend: " + error.message;
       }
     }
   </script>
+
 </body>
 </html>
