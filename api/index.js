@@ -64,15 +64,23 @@ const server = http.createServer(async (req, res) => {
   );
 });
 
-db.connect()
-  .then(() => {
+async function conectarBaseDeDatos() {
+  try {
+    await db.connect();
+
     console.log("Conectado a PostgreSQL");
 
     server.listen(PORT, "0.0.0.0", () => {
       console.log(`API ejecutándose en el puerto ${PORT}`);
     });
-  })
-  .catch((error) => {
-    console.error("Error al conectar con PostgreSQL:", error.message);
+  } catch (error) {
+    console.error(
+      "No fue posible conectar con PostgreSQL:",
+      error.message
+    );
+
     process.exit(1);
-  });
+  }
+}
+
+conectarBaseDeDatos();
