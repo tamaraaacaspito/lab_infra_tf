@@ -4,19 +4,13 @@ resource "docker_image" "nginx" {
 
 resource "docker_container" "webserver" {
     image = docker_image.nginx.image_id
-    name = "web-server"
+    name = "web-${terraform.workspace}"
     ports {
         internal = 80
-        external = var.web-server-port
+        external = var.web_server_port[terraform.workspace]
     }
 }
 
-variable "web-server-port" {
-    description = "The port on which the web server is exposed"
-    type = number
-    default = 3000
-}
-
-output "web-server-port" {
+output "web_server_port" {
     value = docker_container.webserver.ports[0].external
 }
