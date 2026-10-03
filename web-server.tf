@@ -16,8 +16,10 @@ resource "docker_container" "webserver" {
   }
 
   upload {
-    content = file("${path.module}/web/index.html")
-    file    = "/usr/share/nginx/html/index.html"
+    content = templatefile("${path.module}/web/index.html.tftpl", {
+      environment = terraform.workspace
+    })
+    file = "/usr/share/nginx/html/index.html"
   }
 
   upload {
